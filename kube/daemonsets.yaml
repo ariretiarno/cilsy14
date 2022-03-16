@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-ari-daemon
+  labels:
+    name: nginx-ari-daemon
+spec:
+  selector:
+    matchLabels:
+      name: nginx-ari-daemon
+  template:
+    metadata:
+      name: nginx-ari-daemon
+      labels:
+        name: nginx-ari-daemon
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80

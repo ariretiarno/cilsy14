@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nginx-ari-cronjob
+  labels:
+    name: nginx-ari-cronjob
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: nginx-ari-cronjob
+          labels:
+            name: nginx-ari-cronjob
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: nginx-ari-cronjob
+              image: nginx

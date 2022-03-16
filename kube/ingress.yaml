@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ari
+  namespace: default
+  labels:
+    name: nginx-ari
+spec:
+  rules:
+  - host: evermos.retiarno.my.id
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: /
+        backend:
+          service:
+            name: nginx-ari
+            port: 
+              number: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-ari
+  namespace: default
+  labels:
+    name: nginx-ari
+spec:
+  containers:
+  - name: nginx-ari
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "50m"
+    ports:
+      - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ari
+  namespace: default
+spec:
+  selector:
+    name: nginx-ari
+  ports:
+  - port: 80
+    targetPort: 80
+
+
