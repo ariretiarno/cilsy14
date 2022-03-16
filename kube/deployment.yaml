@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-ari
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: nginx-ari
