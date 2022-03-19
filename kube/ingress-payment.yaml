@@ -1,46 +1,41 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-ari
+  name: nginx-payment
   namespace: default
   labels:
-    name: nginx-ari
-#  annotations:
-#    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    name: nginx-payment
 spec:
-  ingressClassName: nginx
   rules:
-  - host: ngin.kubernetes.retiarno.my.id
+  - host: cilsy.id
     http:
       paths:
       - pathType: ImplementationSpecific
-        path: /
+        path: /payment
         backend:
           service:
-            name: nginx-ari
+            name: nginx-payment
             port: 
               number: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-ari
+  name: nginx-payment
   labels:
-    name: nginx-ari
-  namespace: default
+    name: nginx-payment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx-ari
+      app: nginx-payment
   template:
     metadata:
       labels:
-        app: nginx-ari
+        app: nginx-payment
     spec:
       containers:
-      - name: nginx-ari
+      - name: nginx-payment
         image: nginx
         resources:
           limits:
@@ -52,11 +47,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-ari
+  name: nginx-payment
   namespace: default
 spec:
   selector:
-    app: nginx-ari
+    name: nginx-payment
   ports:
   - port: 80
     targetPort: 80

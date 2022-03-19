@@ -3,8 +3,8 @@ kind: Pod
 metadata:
   name: nginx
   labels:
-    environment: development
     app: frontend
+  namespace: development
 spec:
   containers:
   - name: nginx

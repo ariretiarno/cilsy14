@@ -1,36 +1,30 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-ari
-  namespace: default
+  name: ingress-nginx
+  namespace: cilsy14
   labels:
-    name: nginx-ari
-#  annotations:
-#    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    name: ingress-nginx
 spec:
   ingressClassName: nginx
   rules:
-  - host: ngin.kubernetes.retiarno.my.id
+  - host: ari.kubernetes.retiarno.my.id
     http:
       paths:
       - pathType: ImplementationSpecific
-        path: /
+        path: "/"
         backend:
           service:
             name: nginx-ari
             port: 
               number: 80
----
+--- 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-ari
-  labels:
-    name: nginx-ari
-  namespace: default
+  namespace: cilsy14
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: nginx-ari
@@ -48,12 +42,14 @@ spec:
             cpu: "50m"
         ports:
         - containerPort: 80
----
+
+--- 
+
 apiVersion: v1
 kind: Service
 metadata:
   name: nginx-ari
-  namespace: default
+  namespace: cilsy14
 spec:
   selector:
     app: nginx-ari
